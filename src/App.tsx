@@ -1,27 +1,41 @@
-import type { Component } from 'solid-js';
-
-import logo from './logo.svg';
+import type {Component} from 'solid-js';
+import {createEffect, For} from "solid-js";
 import styles from './App.module.css';
+import SupportData from "./data/SupportData";
+import Store, {setUrlSearchParam} from "./data/Store";
+import DataTable from "./component/DataTable";
+import HeaderTools from "./component/HeaderTools";
 
 const App: Component = () => {
-  return (
-    <div class={styles.App}>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          class={styles.link}
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
-      </header>
-    </div>
-  );
+    const [store] = Store;
+    createEffect(() => {
+        for (const [key, value] of Object.entries(store)) {
+            setUrlSearchParam(key, JSON.stringify(value));
+        }
+    });
+
+    const sortedData = () => {
+        return Array.from(store.dataList).sort((a, b) => {
+            return store.sortBy === null ? 0 : a[store.sortBy] - b[store.sortBy]
+        });
+    }
+    const groupedData = () => {
+        const map = new Map<number, SupportData[]>;
+        for (const data of sortedData()) {
+            const groupKey = data[store.groupBy];
+            map.set(groupKey, [...map.get(groupKey) ?? [], data]);
+        }
+        return Array.from(map.values());
+    }
+
+    return (
+        <div class={styles.Container}>
+            <HeaderTools/>
+            <For each={groupedData()}>{(recordList: SupportData[]) =>
+                <DataTable rows={recordList}/>
+            }</For>
+        </div>
+    );
 };
 
 export default App;

@@ -1,0 +1,46 @@
+:root {
+  --button-text-color: var(--primary-color);
+  --button-background-color: transparent;
+  --button-size: 52px;
+  --button-padding: var(--gap);
+
+  --input-text-color: var(--primary-color);
+  --input-background-color: var(--secondary-color);
+}
+
+.HeaderTools{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--gap);
+  padding: var(--gap-s);
+  width: calc(100% - var(--gap));
+  max-width: calc(100% - var(--gap));
+}
+
+.HeaderButtonIcon {
+  background-color: var(--button-background-color);
+  width: var(--button-size);
+  margin: var(--gap-s);
+  border: 0;
+}
+.HeaderButtonIcon:active{background-color:orange;}
+
+.HeaderButtonIcon {
+  color: var(--button-text-color);
+}
+
+.HeaderSearch {
+  width: 100%;
+  padding: var(--gap);
+  margin: 0 var(--gap);
+  background-color: var(--input-background-color);
+  border: solid 1px var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--input-text-color);
+}
+
+.HeaderSearch:focus{
+  border: solid 1px var(--focus-color);
+  outline: 0;
+}

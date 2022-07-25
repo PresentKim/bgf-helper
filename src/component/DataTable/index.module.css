@@ -1,0 +1,58 @@
+.DataTable {
+    font-family: var(--font-light);
+    border: 5px solid var(--bg-active-button);
+    margin: var(--gap) var(--gap);
+    border-collapse: collapse;
+    width: calc(100% - var(--gap));
+    max-width: calc(100% - var(--gap));
+}
+
+.DataTable,
+.DataTable th,
+.DataTable td {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: var(--gap) 0;
+}
+
+.DataTable tbody td {
+    padding: var(--gap-s);
+}
+
+.DataTable th {
+    font-weight: bolder;
+    text-align: center;
+    border-bottom: solid 1px var(--border-color);
+}
+
+.DataTable td {
+    border-bottom: solid 1px var(--border-color);
+}
+
+.DataTable tbody tr:nth-child(even) {
+    background-color: var(--even-row-color);
+}
+
+.DataTable tbody tr:hover {
+    background-color: var(--hover-cell-color);
+}
+
+.DataTable tr {
+    display: flex;
+}
+
+.dock, .store, .order {
+    flex: 1;
+}
+
+.name {
+    flex: 3;
+}
+
+.wave, .chute, .truck {
+    flex: 1;
+}
+
+td.dock, td.wave, td.chute, td.truck, td.order {
+    font-size: calc(var(--font-size) + 7px);
+}
