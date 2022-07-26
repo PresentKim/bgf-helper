@@ -23,10 +23,16 @@ const [state, setState] = createStore({
     sortBy: JSON.parse(getUrlSearchParam('sortBy') ?? 'null'),
     sortAscending: JSON.parse(getUrlSearchParam('sortAscending') ?? 'false'),
     filter: JSON.parse(getUrlSearchParam('filter') ?? '{}'),
-    dataList: JSON.parse(getUrlSearchParam('dataList') ?? '[]'),
+    dataList: SupportData.deserializeAll(getUrlSearchParam('dataList') ?? ''),
 } as UrlParams);
 
 export default [state, setState] as [get: Store<UrlParams>, set: SetStoreFunction<UrlParams>];
+createEffect(() => {
+    for (const [key, value] of Object.entries(state)) {
+        setUrlSearchParam(key, JSON.stringify(value));
+    }
+    setUrlSearchParam("dataList", state.dataList.map((data)=>data.serialize()).join(","));
+});
 
 export function getUrlSearchParam(name: string): string | null {
     return new URLSearchParams(document.location.search).get(name);

@@ -8,11 +8,6 @@ import HeaderTools from "./component/HeaderTools";
 
 const App: Component = () => {
     const [store] = Store;
-    createEffect(() => {
-        for (const [key, value] of Object.entries(store)) {
-            setUrlSearchParam(key, JSON.stringify(value));
-        }
-    });
 
     const sortedData = () => {
         return Array.from(store.dataList).sort((a, b) => {

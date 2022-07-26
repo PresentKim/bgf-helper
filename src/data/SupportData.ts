@@ -68,4 +68,8 @@ export default class SupportData {
         }
         return results;
     }
+
+    public static from(obj: DataObj): SupportData {
+        return new SupportData(obj.dock, obj.store, obj.name, obj.wave, obj.chute, obj.truck, obj.order);
+    }
 }
