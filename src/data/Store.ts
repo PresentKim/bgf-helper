@@ -42,5 +42,5 @@ export function setUrlSearchParam(name: string, value: string): void {
     const params = new URLSearchParams(document.location.search);
     params.set(name, value);
 
-    history.replaceState({}, '', '?' + params.toString());
+    history.pushState({}, '', '?' + params.toString());
 }
