@@ -1,11 +1,13 @@
 @font-face {
     src: url(./assets/MaplestoryBold.ttf);
     font-family: "MaplestoryBold";
+    font-display: swap;
 }
 
 @font-face {
     src: url(./assets/MaplestoryLight.ttf);
     font-family: "MaplestoryLight";
+    font-display: swap;
 }
 
 * {
