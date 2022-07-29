@@ -1,13 +1,14 @@
 import type {Component} from 'solid-js';
-import {createEffect, For} from "solid-js";
+import {For} from "solid-js";
 import styles from './App.module.css';
 import SupportData from "./data/SupportData";
 import Store, {setUrlSearchParam} from "./data/Store";
 import DataTable from "./component/DataTable";
 import HeaderTools from "./component/HeaderTools";
+import {store} from "./data/Store";
+import {SupportData} from "./data/SupportData";
 
 const App: Component = () => {
-    const [store] = Store;
 
     const sortedData = () => {
         return Array.from(store.dataList).sort((a, b) => {

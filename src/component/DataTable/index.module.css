@@ -41,7 +41,7 @@
     display: flex;
 }
 
-.dock, .store, .order {
+.dock, .order {
     flex: 1;
 }
 
@@ -49,10 +49,10 @@
     flex: 3;
 }
 
-.wave, .chute, .truck {
+.wave, .chute {
     flex: 1;
 }
 
-td.dock, td.wave, td.chute, td.truck, td.order {
+td.dock, td.wave, td.chute, td.order {
     font-size: calc(var(--font-size) + 7px);
 }
