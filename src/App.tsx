@@ -1,24 +1,30 @@
 import type {Component} from 'solid-js';
 import {For} from "solid-js";
 import styles from './App.module.css';
-import SupportData from "./data/SupportData";
-import Store, {setUrlSearchParam} from "./data/Store";
 import DataTable from "./component/DataTable";
 import HeaderTools from "./component/HeaderTools";
-import {store} from "./data/Store";
+import {GroupBy, SortBy, store} from "./data/Store";
 import {SupportData} from "./data/SupportData";
 
 const App: Component = () => {
-
-    const sortedData = () => {
-        return Array.from(store.dataList).sort((a, b) => {
-            return store.sortBy === null ? 0 : a[store.sortBy] - b[store.sortBy]
+    const sortedData = (dataList: SupportData[], sortByList: SortBy[]) => {
+        return Array.from(dataList).sort((a, b): number => {
+            for (const sortBy of sortByList) {
+                if (sortBy === null) {
+                    continue;
+                }
+                const order = a[sortBy] - b[sortBy];
+                if (order !== 0) {
+                    return order;
+                }
+            }
+            return 0;
         });
     }
-    const groupedData = () => {
+    const groupedData = (dataList: SupportData[], groupBy: GroupBy) => {
         const map = new Map<number, SupportData[]>;
-        for (const data of sortedData()) {
-            const groupKey = data[store.groupBy];
+        for (const data of sortedData(dataList, [groupBy, store.sortBy])) {
+            const groupKey = data[groupBy];
             map.set(groupKey, [...map.get(groupKey) ?? [], data]);
         }
         return Array.from(map.values());
@@ -27,7 +33,7 @@ const App: Component = () => {
     return (
         <div class={styles.Container}>
             <HeaderTools/>
-            <For each={groupedData()}>{(recordList: SupportData[]) =>
+            <For each={groupedData(store.dataList, store.groupBy)}>{(recordList: SupportData[]) =>
                 <DataTable rows={recordList}/>
             }</For>
         </div>
